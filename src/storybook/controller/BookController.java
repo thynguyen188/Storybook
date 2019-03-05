@@ -38,6 +38,7 @@ import storybook.model.hbn.entity.Part;
 import storybook.model.hbn.entity.Person;
 import storybook.model.hbn.entity.Relationship;
 import storybook.model.hbn.entity.Scene;
+import storybook.model.hbn.entity.Species;
 import storybook.model.hbn.entity.Strand;
 import storybook.model.hbn.entity.Tag;
 import storybook.model.hbn.entity.TagLink;
@@ -445,6 +446,30 @@ public class BookController extends AbstractController {
 			return text.equals(prop);
 		}
 	};
+	public enum SpeciesProps {
+
+		INIT("InitSpecies"),
+		EDIT("EditSpecies"),
+		EXPORT("ExportSpecies"),
+		DELETE("DeleteSpecies"),
+		DELETE_MULTI("DeleteMultiSpecies"),
+		NEW("NewSpecies"),
+		UPDATE("UpdateSpecies");
+		final private String text;
+
+		private SpeciesProps(String text) {
+			this.text = text;
+		}
+
+		@Override
+		public String toString() {
+			return text;
+		}
+
+		public boolean check(String prop) {
+			return text.equals(prop);
+		}
+	};
 
 	public enum CategoryProps {
 
@@ -746,7 +771,9 @@ public class BookController extends AbstractController {
 				updateRelationship((Relationship) entity);
 			} else if (entity instanceof Gender) {
 				updateGender((Gender) entity);
-			} else if (entity instanceof Category) {
+			} else if (entity instanceof Species) {
+				updateSpecies((Species) entity);
+			}else if (entity instanceof Category) {
 				updateCategory((Category) entity);
 			} else if (entity instanceof Strand) {
 				updateStrand((Strand) entity);
@@ -836,7 +863,9 @@ public class BookController extends AbstractController {
 				newRelationship((Relationship) entity);
 			} else if (entity instanceof Gender) {
 				newGender((Gender) entity);
-			} else if (entity instanceof Category) {
+			} else if (entity instanceof Species) {
+				newSpecies((Species)entity);
+			}else if (entity instanceof Category) {
 				newCategory((Category) entity);
 			} else if (entity instanceof Strand) {
 				newStrand((Strand) entity);
@@ -1150,9 +1179,28 @@ public class BookController extends AbstractController {
 	public void deleteMultiGenders(ArrayList<Long> ids) {
 		setModelProperty(GenderProps.DELETE_MULTI.toString(), ids);
 	}
-
 	public void setGenderToEdit(Gender genderToEdit) {
 		setModelProperty(GenderProps.EDIT.toString(), genderToEdit);
+	}
+	// species
+		public void updateSpecies(Species species) {
+			setModelProperty(SpeciesProps.UPDATE.toString(), species);
+		}
+
+		public void newSpecies(Species newSpecies) {
+			setModelProperty(SpeciesProps.NEW.toString(), newSpecies);
+		}
+
+		public void deleteSpecies(Species speciesToDeleted) {
+			setModelProperty(SpeciesProps.DELETE.toString(), speciesToDeleted);
+		}
+
+		public void deleteMultiSpecies(ArrayList<Long> ids) {
+			setModelProperty(SpeciesProps.DELETE_MULTI.toString(), ids);
+		}
+		
+	public void setSpeciesToEdit(Species speciesToEdit) {
+		setModelProperty(SpeciesProps.EDIT.toString(), speciesToEdit);
 	}
 
 	// attributes

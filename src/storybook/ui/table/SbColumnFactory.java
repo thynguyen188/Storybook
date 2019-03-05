@@ -51,6 +51,7 @@ import storybook.ui.table.renderer.BooleanTableCellRenderer;
 import storybook.ui.table.renderer.CategoryTableCellRenderer;
 import storybook.ui.table.renderer.ChapterTableCellRenderer;
 import storybook.ui.table.renderer.GenderTableCellRenderer;
+import storybook.ui.table.renderer.SpeciesTableCellRenderer;
 import storybook.ui.table.renderer.HtmlTableCellRenderer;
 import storybook.ui.table.renderer.IconTableCellRenderer;
 import storybook.ui.table.renderer.ItemsTableCellRenderer;
@@ -333,6 +334,10 @@ public class SbColumnFactory {
 		col = new SbColumn(i++, "Gender", InputType.COMBOBOX, "manage.persons.gender");
 		col.setTableCellRenderer(new GenderTableCellRenderer());
 		columns.add(col);
+		
+		col = new SbColumn(i++, "Species", InputType.COMBOBOX, "manage.persons.species");
+		col.setTableCellRenderer(new SpeciesTableCellRenderer());
+		columns.add(col);
 
 		col = new SbColumn(i++, "Category", InputType.COMBOBOX, "manage.persons.category");
 		col.setTableCellRenderer(new CategoryTableCellRenderer());
@@ -484,6 +489,31 @@ public class SbColumnFactory {
 
 		return columns;
 	}
+	
+	public Vector<SbColumn> getSpeciesColumns() {
+		int i=1;
+		Vector<SbColumn> columns = new Vector<SbColumn>();
+		columns.add(getIdColumn());
+
+		SbColumn col = new SbColumn(i++, "Icon", InputType.ICON, "icon");
+		col.setTableCellRenderer(new IconTableCellRenderer());
+		columns.add(col);
+
+
+		col = new SbColumn(i++, "Name", "manage.persons.species");
+		col.setMaxLength(255);
+		col.setGrowX(true);
+		VerifierGroup group = new VerifierGroup();
+		group.addVerifier(new NotEmptyVerifier());
+		group.addVerifier(new LengthVerifier(col.getMaxLength()));
+		col.setVerifier(group);
+		col.setDefaultSort(true);
+		columns.add(col);
+
+		
+		return columns;
+	}
+
 
 	public Vector<SbColumn> getCategoryColumns() {
 		int i=1;

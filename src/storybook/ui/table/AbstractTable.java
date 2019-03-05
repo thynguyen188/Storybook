@@ -1,6 +1,7 @@
 package storybook.ui.table;
 
 import java.awt.Color;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -68,6 +69,7 @@ import storybook.model.hbn.entity.Internal;
 import storybook.model.hbn.entity.Part;
 import storybook.model.hbn.entity.Person;
 import storybook.model.hbn.entity.Scene;
+import storybook.model.hbn.entity.Species;
 import storybook.model.hbn.entity.Strand;
 import storybook.model.hbn.entity.TimeEvent;
 import storybook.model.state.IdeaState;
@@ -479,6 +481,7 @@ public abstract class AbstractTable extends AbstractPanel implements ActionListe
 						|| ret instanceof Chapter
 						|| ret instanceof Part
 						|| ret instanceof Gender
+						|| ret instanceof Species
 						|| ret instanceof Category
 						|| ret instanceof Person
 						|| ret instanceof Icon) {

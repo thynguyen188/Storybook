@@ -33,7 +33,6 @@ import storybook.toolkit.swing.verifier.IntegerVerifier;
 import storybook.toolkit.swing.verifier.LengthVerifier;
 import storybook.toolkit.swing.verifier.MultipleNumberVerifier;
 import storybook.toolkit.swing.verifier.NotEmptyVerifier;
-import storybook.toolkit.swing.verifier.NotDuplicateVerifier;
 import storybook.toolkit.swing.verifier.VerifierGroup;
 import storybook.ui.RadioButtonGroup;
 import storybook.ui.combobox.IdeaStateComboModel;
@@ -242,7 +241,6 @@ public class SbColumnFactory {
 		VerifierGroup group = new VerifierGroup();
 		group.addVerifier(new NotEmptyVerifier());
 		group.addVerifier(new LengthVerifier(col.getMaxLength()));
-		group.addVerifier(new NotDuplicateVerifier());
 		col.setVerifier(group);
 		col.setDefaultSort(true);
 		columns.add(col);
@@ -251,7 +249,6 @@ public class SbColumnFactory {
 		col.setMaxLength(255);
 		VerifierGroup group2 = new VerifierGroup();
 		group2.addVerifier(new LengthVerifier(col.getMaxLength()));
-		group2.addVerifier(new NotDuplicateVerifier());
 		col.setVerifier(group2);
 		col.setGrowX(true);
 		col.setHideOnStart(true);
@@ -261,7 +258,6 @@ public class SbColumnFactory {
 		col.setMaxLength(255);
 		VerifierGroup group3 = new VerifierGroup();
 		group3.addVerifier(new LengthVerifier(col.getMaxLength()));
-		group3.addVerifier(new NotDuplicateVerifier());
 		col.setVerifier(group3);
 		col.setGrowX(true);
 		col.setAutoComplete(true);
@@ -272,7 +268,6 @@ public class SbColumnFactory {
 		col.setMaxLength(255);
 		VerifierGroup group4 = new VerifierGroup();
 		group4.addVerifier(new LengthVerifier(col.getMaxLength()));
-		group4.addVerifier(new NotDuplicateVerifier());
 		col.setVerifier(group4);
 		col.setGrowX(true);
 		col.setAutoComplete(true);
@@ -283,7 +278,6 @@ public class SbColumnFactory {
 		col.setMaxLength(255);
 		VerifierGroup group5 = new VerifierGroup();
 		group5.addVerifier(new LengthVerifier(col.getMaxLength()));
-		group5.addVerifier(new NotDuplicateVerifier());
 		col.setVerifier(group5);
 		col.setGrowX(true);
 		col.setAutoComplete(true);
@@ -293,7 +287,6 @@ public class SbColumnFactory {
 		col = new SbColumn(i++, "Altitude", "location.altitude");
 		VerifierGroup group6 = new VerifierGroup();
 		group6.addVerifier(new IntegerVerifier(false, true));
-		group6.addVerifier(new NotDuplicateVerifier());
 		col.setVerifier(group6);
 		col.setComparator(new StringIntegerComparator());
 		col.setHideOnStart(true);
@@ -303,7 +296,6 @@ public class SbColumnFactory {
 		col.setMaxLength(32768);
 		VerifierGroup group7 = new VerifierGroup();
 		group7.addVerifier(new LengthVerifier(col.getMaxLength()));
-		group7.addVerifier(new NotDuplicateVerifier());
 		col.setVerifier(group7);
 		col.setTableCellRenderer(new HtmlTableCellRenderer());
 		columns.add(col);
@@ -312,7 +304,6 @@ public class SbColumnFactory {
 		col.setMaxLength(32768);
 		VerifierGroup group8 = new VerifierGroup();
 		group8.addVerifier(new LengthVerifier(col.getMaxLength()));
-		group8.addVerifier(new NotDuplicateVerifier());
 		col.setVerifier(group8);
 		col.setShowInSeparateTab(true);
 		col.setHideOnStart(true);

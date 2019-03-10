@@ -67,7 +67,7 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.JTextComponent;
 
 import org.apache.commons.text.exception.ExceptionUtils;
-
+import org.hibernate.Session;
 import org.miginfocom.swing.MigLayout;
 
 import org.jopendocument.dom.OOUtils;
@@ -77,6 +77,7 @@ import storybook.SbConstants;
 import storybook.SbConstants.ClientPropertyName;
 import storybook.SbConstants.ComponentName;
 import storybook.controller.BookController;
+import storybook.model.BookModel;
 import storybook.model.EntityUtil;
 import storybook.model.handler.AbstractEntityHandler;
 import storybook.model.handler.AttributeEntityHandler;
@@ -97,6 +98,7 @@ import storybook.model.handler.StrandEntityHandler;
 import storybook.model.handler.TagEntityHandler;
 import storybook.model.handler.TagLinkEntityHandler;
 import storybook.model.handler.TimeEventEntityHandler;
+import storybook.model.hbn.dao.LocationDAOImpl;
 import storybook.model.hbn.entity.AbstractEntity;
 import storybook.model.hbn.entity.AbstractTag;
 import storybook.model.hbn.entity.Attribute;
@@ -1166,6 +1168,24 @@ public class EntityEditor extends AbstractPanel implements ActionListener, ItemL
 					cont.remove(comp);
 				}
 			}
+			if(entity instanceof Location) {
+				System.out.println("verify for location");
+				BookModel model = mainFrame.getBookModel();
+				Session session = model.beginTransaction();
+				LocationDAOImpl dao = new LocationDAOImpl(session);
+	            List<Location> allLocations = dao.findAll();
+				System.out.println("allLocations: " + allLocations);
+				for(Location location: allLocations) {
+					if(((Location) entity).compareTo(location) == 0) {
+						System.out.println("Duplicate found: " + entity + " - " + location);
+						System.out.println("Alert user");
+						errorState = ErrorState.ERROR;
+						JOptionPane.showMessageDialog(this,
+								I18N.getMsg("editor.has.error"),
+								"Duplicated location", JOptionPane.WARNING_MESSAGE);
+					}
+				}
+			}
 			int i = 0;
 			for (JComponent comp : inputComponents) {
 				AbstractInputVerifier verifier = (AbstractInputVerifier) comp.getInputVerifier();
@@ -1353,6 +1373,7 @@ public class EntityEditor extends AbstractPanel implements ActionListener, ItemL
 			System.out.println("lancement du navigateur sur \n" + baseUrl);
 			NetUtil.openBrowser(baseUrl);
 		} else if (ComponentName.BT_OK.check(compName)) {
+			System.out.println("OK button onclicked");
 			addOrUpdateEntity();
 			if (errorState == ErrorState.ERROR) {
 				return;

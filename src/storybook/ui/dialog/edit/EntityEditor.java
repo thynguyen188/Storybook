@@ -1169,19 +1169,14 @@ public class EntityEditor extends AbstractPanel implements ActionListener, ItemL
 				}
 			}
 			if(entity instanceof Location) {
-				System.out.println("verify for location");
 				BookModel model = mainFrame.getBookModel();
 				Session session = model.beginTransaction();
 				LocationDAOImpl dao = new LocationDAOImpl(session);
-	            List<Location> allLocations = dao.findAll();
-				System.out.println("allLocations: " + allLocations);
+				List<Location> allLocations = dao.findAll();
 				for(Location location: allLocations) {
 					if(((Location) entity).compareTo(location) == 0) {
-						System.out.println("Duplicate found: " + entity + " - " + location);
-						System.out.println("Alert user");
 						errorState = ErrorState.ERROR;
-						JOptionPane.showMessageDialog(this,
-								I18N.getMsg("editor.has.error"),
+						JOptionPane.showMessageDialog(this, I18N.getMsg("editor.has.error"),
 								"Duplicated location", JOptionPane.WARNING_MESSAGE);
 					}
 				}
@@ -1373,7 +1368,6 @@ public class EntityEditor extends AbstractPanel implements ActionListener, ItemL
 			System.out.println("lancement du navigateur sur \n" + baseUrl);
 			NetUtil.openBrowser(baseUrl);
 		} else if (ComponentName.BT_OK.check(compName)) {
-			System.out.println("OK button onclicked");
 			addOrUpdateEntity();
 			if (errorState == ErrorState.ERROR) {
 				return;

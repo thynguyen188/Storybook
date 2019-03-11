@@ -166,6 +166,7 @@ public class BookModel extends AbstractModel {
 		fireAgainCategories();
 		fireAgainChapters();
 		fireAgainGenders();
+		fireAgainSpecies();
 		fireAgainIdeas();
 		fireAgainInternals();
 		fireAgainItems();
@@ -208,7 +209,9 @@ public class BookModel extends AbstractModel {
 			fireAgainRelationships();
 		} else if (ViewName.GENDERS.compare(view)) {
 			fireAgainGenders();
-		} else if (ViewName.CATEGORIES.compare(view)) {
+		} else if (ViewName.SPECIES.compare(view)) {
+			fireAgainSpecies();
+		}else if (ViewName.CATEGORIES.compare(view)) {
 			fireAgainCategories();
 		} else if (ViewName.ATTRIBUTES.compare(view)) {
 			fireAgainAttributes();
@@ -298,6 +301,14 @@ public class BookModel extends AbstractModel {
 		List<Gender> genders = dao.findAll();
 		commit();
 		firePropertyChange(BookController.GenderProps.INIT.toString(), null, genders);
+	}
+	private void fireAgainSpecies() {
+		SbApp.trace("BookModel.fireAgainSpecies()");
+		Session session = beginTransaction();
+		SpeciesDAOImpl dao = new SpeciesDAOImpl(session);
+		List<Species> species = dao.findAll();
+		commit();
+		firePropertyChange(BookController.SpeciesProps.INIT.toString(), null, species);
 	}
 
 	private void fireAgainCategories() {
@@ -467,6 +478,9 @@ public class BookModel extends AbstractModel {
 
 	public void setShowInfo(Gender gender) {
 		setShowInfo((AbstractEntity) gender);
+	}
+	public void setShowInfo(Species species) {
+		setShowInfo((AbstractEntity) species);
 	}
 
 	public void setShowInfo(Location location) {

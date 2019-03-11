@@ -57,8 +57,6 @@ public class SpeciesDAOImpl extends SbGenericDAOImpl<Species, Long>  {
 	public List<Person> findPersons(Species species) {
 		Criteria crit = session.createCriteria(Person.class);
 		crit.add(Restrictions.eq("species", species));
-		crit.addOrder(Order.asc("firstname"));
-		crit.addOrder(Order.asc("lastname"));
 		List<Person> persons = (List<Person>) crit.list();
 		return persons;
 	}

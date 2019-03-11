@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package storybook.ui.panel.tree;
 
 import java.awt.Dimension;
+
 import java.awt.Point;
 import java.awt.dnd.DnDConstants;
 import java.awt.event.ActionEvent;

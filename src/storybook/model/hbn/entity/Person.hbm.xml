@@ -19,6 +19,7 @@
     <property column="color" insert="true" name="color" type="java.lang.Integer" update="true"/>
     <property column="notes" insert="true" length="32768" name="notes" type="java.lang.String" update="true"/>
     <many-to-one cascade="none" class="storybook.model.hbn.entity.Category" column="category_id" insert="true" lazy="false" name="category" outer-join="auto" update="true"/>
+	<many-to-one cascade="none" class="storybook.model.hbn.entity.Species" column="species_id" insert="true" lazy="false" name="species" outer-join="auto" update="true"/>
     <bag cascade="none" lazy="false" name="attributes" table="person_attribute">
       <key column="person_id">
             </key>

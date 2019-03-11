@@ -247,8 +247,7 @@ public class SbColumnFactory {
 		
 		col = new SbColumn(i++, "Address", "location.address");
 		col.setMaxLength(255);
-		VerifierGroup group2 = new VerifierGroup();
-		group2.addVerifier(new LengthVerifier(col.getMaxLength()));
+		col.setVerifier(new LengthVerifier(col.getMaxLength()));
 		col.setVerifier(group2);
 		col.setGrowX(true);
 		col.setHideOnStart(true);
@@ -266,8 +265,7 @@ public class SbColumnFactory {
 
 		col = new SbColumn(i++, "Country", "location.country");
 		col.setMaxLength(255);
-		VerifierGroup group4 = new VerifierGroup();
-		group4.addVerifier(new LengthVerifier(col.getMaxLength()));
+		col.setVerifier(new LengthVerifier(col.getMaxLength()));
 		col.setVerifier(group4);
 		col.setGrowX(true);
 		col.setAutoComplete(true);
@@ -276,8 +274,7 @@ public class SbColumnFactory {
 
 		col = new SbColumn(i++, "Site", "location.site");
 		col.setMaxLength(255);
-		VerifierGroup group5 = new VerifierGroup();
-		group5.addVerifier(new LengthVerifier(col.getMaxLength()));
+		col.setVerifier(new LengthVerifier(col.getMaxLength()));
 		col.setVerifier(group5);
 		col.setGrowX(true);
 		col.setAutoComplete(true);
@@ -285,8 +282,7 @@ public class SbColumnFactory {
 		columns.add(col);
 
 		col = new SbColumn(i++, "Altitude", "location.altitude");
-		VerifierGroup group6 = new VerifierGroup();
-		group6.addVerifier(new IntegerVerifier(false, true));
+		col.setVerifier(new IntegerVerifier(false, true));
 		col.setVerifier(group6);
 		col.setComparator(new StringIntegerComparator());
 		col.setHideOnStart(true);
@@ -294,16 +290,14 @@ public class SbColumnFactory {
 
 		col = new SbColumn(i++, "Description", InputType.TEXTAREA, "location.description");
 		col.setMaxLength(32768);
-		VerifierGroup group7 = new VerifierGroup();
-		group7.addVerifier(new LengthVerifier(col.getMaxLength()));
+		col.setVerifier(new LengthVerifier(col.getMaxLength()));
 		col.setVerifier(group7);
 		col.setTableCellRenderer(new HtmlTableCellRenderer());
 		columns.add(col);
 
 		col = new SbColumn(i++, "Notes", InputType.TEXTAREA, "notes");
 		col.setMaxLength(32768);
-		VerifierGroup group8 = new VerifierGroup();
-		group8.addVerifier(new LengthVerifier(col.getMaxLength()));
+		col.setVerifier(new LengthVerifier(col.getMaxLength()));
 		col.setVerifier(group8);
 		col.setShowInSeparateTab(true);
 		col.setHideOnStart(true);

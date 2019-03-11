@@ -67,7 +67,7 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.JTextComponent;
 
 import org.apache.commons.text.exception.ExceptionUtils;
-
+import org.hibernate.Session;
 import org.miginfocom.swing.MigLayout;
 
 import org.jopendocument.dom.OOUtils;
@@ -77,6 +77,7 @@ import storybook.SbConstants;
 import storybook.SbConstants.ClientPropertyName;
 import storybook.SbConstants.ComponentName;
 import storybook.controller.BookController;
+import storybook.model.BookModel;
 import storybook.model.EntityUtil;
 import storybook.model.handler.AbstractEntityHandler;
 import storybook.model.handler.AttributeEntityHandler;
@@ -97,6 +98,7 @@ import storybook.model.handler.StrandEntityHandler;
 import storybook.model.handler.TagEntityHandler;
 import storybook.model.handler.TagLinkEntityHandler;
 import storybook.model.handler.TimeEventEntityHandler;
+import storybook.model.hbn.dao.LocationDAOImpl;
 import storybook.model.hbn.entity.AbstractEntity;
 import storybook.model.hbn.entity.AbstractTag;
 import storybook.model.hbn.entity.Attribute;
@@ -1164,6 +1166,19 @@ public class EntityEditor extends AbstractPanel implements ActionListener, ItemL
 				for (Component comp : components) {
 					Container cont = comp.getParent();
 					cont.remove(comp);
+				}
+			}
+			if(entity instanceof Location) {
+				BookModel model = mainFrame.getBookModel();
+				Session session = model.beginTransaction();
+				LocationDAOImpl dao = new LocationDAOImpl(session);
+				List<Location> allLocations = dao.findAll();
+				for(Location location: allLocations) {
+					if(((Location) entity).compareTo(location) == 0) {
+						errorState = ErrorState.ERROR;
+						JOptionPane.showMessageDialog(this, I18N.getMsg("editor.has.error"),
+								"Duplicated location", JOptionPane.WARNING_MESSAGE);
+					}
 				}
 			}
 			int i = 0;

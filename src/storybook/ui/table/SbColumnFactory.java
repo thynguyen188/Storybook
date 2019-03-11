@@ -248,16 +248,13 @@ public class SbColumnFactory {
 		col = new SbColumn(i++, "Address", "location.address");
 		col.setMaxLength(255);
 		col.setVerifier(new LengthVerifier(col.getMaxLength()));
-		col.setVerifier(group2);
 		col.setGrowX(true);
 		col.setHideOnStart(true);
 		columns.add(col);
 
 		col = new SbColumn(i++, "City", "location.city");
 		col.setMaxLength(255);
-		VerifierGroup group3 = new VerifierGroup();
-		group3.addVerifier(new LengthVerifier(col.getMaxLength()));
-		col.setVerifier(group3);
+		col.setVerifier(new LengthVerifier(col.getMaxLength()));
 		col.setGrowX(true);
 		col.setAutoComplete(true);
 		col.setAutoCompleteDaoMethod("findCities");
@@ -266,7 +263,6 @@ public class SbColumnFactory {
 		col = new SbColumn(i++, "Country", "location.country");
 		col.setMaxLength(255);
 		col.setVerifier(new LengthVerifier(col.getMaxLength()));
-		col.setVerifier(group4);
 		col.setGrowX(true);
 		col.setAutoComplete(true);
 		col.setAutoCompleteDaoMethod("findCountries");
@@ -275,7 +271,6 @@ public class SbColumnFactory {
 		col = new SbColumn(i++, "Site", "location.site");
 		col.setMaxLength(255);
 		col.setVerifier(new LengthVerifier(col.getMaxLength()));
-		col.setVerifier(group5);
 		col.setGrowX(true);
 		col.setAutoComplete(true);
 		col.setAutoCompleteDaoMethod("findAll");
@@ -283,7 +278,6 @@ public class SbColumnFactory {
 
 		col = new SbColumn(i++, "Altitude", "location.altitude");
 		col.setVerifier(new IntegerVerifier(false, true));
-		col.setVerifier(group6);
 		col.setComparator(new StringIntegerComparator());
 		col.setHideOnStart(true);
 		columns.add(col);
@@ -291,14 +285,12 @@ public class SbColumnFactory {
 		col = new SbColumn(i++, "Description", InputType.TEXTAREA, "location.description");
 		col.setMaxLength(32768);
 		col.setVerifier(new LengthVerifier(col.getMaxLength()));
-		col.setVerifier(group7);
 		col.setTableCellRenderer(new HtmlTableCellRenderer());
 		columns.add(col);
 
 		col = new SbColumn(i++, "Notes", InputType.TEXTAREA, "notes");
 		col.setMaxLength(32768);
 		col.setVerifier(new LengthVerifier(col.getMaxLength()));
-		col.setVerifier(group8);
 		col.setShowInSeparateTab(true);
 		col.setHideOnStart(true);
 		col.setTableCellRenderer(new HtmlTableCellRenderer());

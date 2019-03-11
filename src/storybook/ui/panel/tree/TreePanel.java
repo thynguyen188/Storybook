@@ -333,6 +333,7 @@ public class TreePanel extends AbstractPanel implements TreeSelectionListener, M
 			personsByGendersNode = new EntityNode("tree.persons.by.gender", new Gender());
 			topNode.add(personsByGendersNode);
 			refreshPersonsByGender();
+			/* new node is initialized & species is refreshed */
 			personsBySpeciesNode = new EntityNode("tree.persons.by.species", new Species());
 			topNode.add(personsBySpeciesNode);
 			refreshPersonsBySpecies();
@@ -515,7 +516,7 @@ public class TreePanel extends AbstractPanel implements TreeSelectionListener, M
 		}
 		model.commit();
 	}
-	
+	/* function to find all species & add to species node */
 	private void refreshPersonsBySpecies() {
 		BookModel model = mainFrame.getBookModel();
 		Session session = model.beginTransaction();

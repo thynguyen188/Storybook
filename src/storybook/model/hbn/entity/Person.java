@@ -368,7 +368,7 @@ public class Person extends AbstractEntity implements Comparable<Person> {
 		ret = ret && equalsStringNullValue(firstname, test.getFirstname());
 		ret = ret && equalsStringNullValue(lastname, test.getLastname());
 		ret = ret && equalsObjectNullValue(gender, test.getGender());
-		ret = ret && equalsObjectNullValue(species, test.getSpecies());
+		ret = ret && equalsObjectNullValue(species, test.getSpecies());		/* added species */
 		ret = ret && equalsDateNullValue(birthday, test.getBirthday());
 		ret = ret && equalsDateNullValue(dayofdeath, test.getDayofdeath());
 		ret = ret && equalsIntegerNullValue(color, test.getColor());
@@ -386,7 +386,7 @@ public class Person extends AbstractEntity implements Comparable<Person> {
 		hash = hash * 31 + (firstname != null ? firstname.hashCode() : 0);
 		hash = hash * 31 + (lastname != null ? lastname.hashCode() : 0);
 		hash = hash * 31 + (gender != null ? gender.hashCode() : 0);
-		hash = hash * 31 + (species != null ? species.hashCode() : 0);
+		hash = hash * 31 + (species != null ? species.hashCode() : 0);		/* added species */
 		hash = hash * 31 + (birthday != null ? birthday.hashCode() : 0);
 		hash = hash * 31 + (dayofdeath != null ? dayofdeath.hashCode() : 0);
 		hash = hash * 31 + (color != null ? color.hashCode() : 0);

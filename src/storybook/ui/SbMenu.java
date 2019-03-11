@@ -91,7 +91,7 @@ public class SbMenu {
     private JButton btMemo;
     private JButton btNewChapter;
     private JButton btNewGender;
-    private JButton btNewSpecies;
+    private JButton btNewSpecies;			/* added button to create new species */
     private JButton btNewItem;
     private JButton btNewItemlink;
     private JButton btNewLocation;
@@ -183,7 +183,7 @@ public class SbMenu {
     private JMenuItem newChapters;
     private JMenuItem newFOI;
     private JMenuItem newGender;
-    private JMenuItem newSpecies;
+    private JMenuItem newSpecies;	/* added menu item to create new species */
     private JMenuItem newIdea;
     private JMenuItem newItem;
     private JMenuItem newItemLink;
@@ -402,7 +402,7 @@ public class SbMenu {
 		});
         toolBar.add(btNewGender);
         
-        btNewSpecies = initButton("16x16/new","species.new");
+        btNewSpecies = initButton("16x16/new","species.new");		/* create new species */
         btNewSpecies.addActionListener((ActionEvent evt) -> {
 			mainFrame.newEntity(new Species());
 		});

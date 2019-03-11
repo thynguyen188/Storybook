@@ -446,6 +446,8 @@ public class BookController extends AbstractController {
 			return text.equals(prop);
 		}
 	};
+	
+	/* define what actions can be taken on species */
 	public enum SpeciesProps {
 
 		INIT("InitSpecies"),

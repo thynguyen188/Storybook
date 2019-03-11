@@ -782,7 +782,7 @@ public class EntityUtil {
 			return new GenderEntityHandler(mainFrame);
 		}
 		if (entity instanceof Species) {
-			return new SpeciesEntityHandler(mainFrame);
+			return new SpeciesEntityHandler(mainFrame);		/* define new entity - species */
 		}
 		if (entity instanceof Category) {
 			return new CategoryEntityHandler(mainFrame);

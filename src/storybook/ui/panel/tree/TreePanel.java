@@ -59,6 +59,7 @@ import storybook.model.EntityUtil;
 import storybook.model.hbn.dao.CategoryDAOImpl;
 import storybook.model.hbn.dao.ChapterDAOImpl;
 import storybook.model.hbn.dao.GenderDAOImpl;
+import storybook.model.hbn.dao.SpeciesDAOImpl;
 import storybook.model.hbn.dao.IdeaDAOImpl;
 import storybook.model.hbn.dao.ItemDAOImpl;
 import storybook.model.hbn.dao.ItemLinkDAOImpl;
@@ -73,6 +74,7 @@ import storybook.model.hbn.entity.AbstractEntity;
 import storybook.model.hbn.entity.Category;
 import storybook.model.hbn.entity.Chapter;
 import storybook.model.hbn.entity.Gender;
+import storybook.model.hbn.entity.Species;
 import storybook.model.hbn.entity.Idea;
 import storybook.model.hbn.entity.Item;
 import storybook.model.hbn.entity.ItemLink;
@@ -123,6 +125,7 @@ public class TreePanel extends AbstractPanel implements TreeSelectionListener, M
 	private DefaultMutableTreeNode topNode;
 	private EntityNode personsByCategoryNode;
 	private EntityNode personsByGendersNode;
+	private EntityNode personsBySpeciesNode;
 	private EntityNode locationsNode;
 	private EntityNode scenesNode;
 	private EntityNode tagsNode;
@@ -329,6 +332,9 @@ public class TreePanel extends AbstractPanel implements TreeSelectionListener, M
 			personsByGendersNode = new EntityNode("tree.persons.by.gender", new Gender());
 			topNode.add(personsByGendersNode);
 			refreshPersonsByGender();
+			personsBySpeciesNode = new EntityNode("tree.persons.by.species", new Species());
+			topNode.add(personsBySpeciesNode);
+			refreshPersonsBySpecies();
 		}
 		if (btToogleLocations.isSelected()) {
 			locationsNode = new EntityNode("locations", new Location());
@@ -504,6 +510,23 @@ public class TreePanel extends AbstractPanel implements TreeSelectionListener, M
 			for (Person person : persons) {
 				DefaultMutableTreeNode personNode = new DefaultMutableTreeNode(person);
 				genderNode.add(personNode);
+			}
+		}
+		model.commit();
+	}
+	
+	private void refreshPersonsBySpecies() {
+		BookModel model = mainFrame.getBookModel();
+		Session session = model.beginTransaction();
+		SpeciesDAOImpl speciesDao = new SpeciesDAOImpl(session);
+		List<Species> species = speciesDao.findAll();
+		for (Species oneSpecies : species) {
+			DefaultMutableTreeNode speciesNode = new DefaultMutableTreeNode(oneSpecies);
+			personsBySpeciesNode.add(speciesNode);
+			List<Person> persons = speciesDao.findPersons(oneSpecies);
+			for (Person person : persons) {
+				DefaultMutableTreeNode personNode = new DefaultMutableTreeNode(person);
+				speciesNode.add(personNode);
 			}
 		}
 		model.commit();

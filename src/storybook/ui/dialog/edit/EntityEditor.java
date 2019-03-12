@@ -1170,7 +1170,7 @@ public class EntityEditor extends AbstractPanel implements ActionListener, ItemL
 		LocationDAOImpl dao = new LocationDAOImpl(session);
 		List<Location> allLocations = dao.findAll();
 		for(Location location: allLocations) {
-			if(((Location) entity).compareTo(location) == 0) {
+			if(((Location) entity).compareLocation(location) == 0) {
 				errorState = ErrorState.ERROR;
 				JOptionPane.showMessageDialog(this, I18N.getMsg("editor.has.error"),
 						"Duplicated location", JOptionPane.WARNING_MESSAGE);

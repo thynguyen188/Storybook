@@ -53,6 +53,7 @@ import storybook.model.hbn.entity.Part;
 import storybook.model.hbn.entity.Person;
 import storybook.model.hbn.entity.Relationship;
 import storybook.model.hbn.entity.Scene;
+import storybook.model.hbn.entity.Species;
 import storybook.model.hbn.entity.Strand;
 import storybook.model.hbn.entity.Tag;
 import storybook.model.hbn.entity.TagLink;
@@ -90,6 +91,7 @@ public class SbMenu {
     private JButton btMemo;
     private JButton btNewChapter;
     private JButton btNewGender;
+    private JButton btNewSpecies;			/* added button to create new species */
     private JButton btNewItem;
     private JButton btNewItemlink;
     private JButton btNewLocation;
@@ -181,6 +183,7 @@ public class SbMenu {
     private JMenuItem newChapters;
     private JMenuItem newFOI;
     private JMenuItem newGender;
+    private JMenuItem newSpecies;	/* added menu item to create new species */
     private JMenuItem newIdea;
     private JMenuItem newItem;
     private JMenuItem newItemLink;
@@ -310,7 +313,7 @@ public class SbMenu {
 		JButton[] btn = {
 			btFileNew, btFileOpen, btFileSave, //3
 			btNewStrand, btNewPart, btNewChapter, btNewScene,//4
-			btNewPerson, btNewGender, btNewRelationship,//3
+			btNewPerson, btNewGender,btNewSpecies, btNewRelationship,//3
 			btNewLocation,//1
 			btNewItem, btNewItemlink,//2
 			btNewTag, btNewTaglink, //2
@@ -398,6 +401,12 @@ public class SbMenu {
 			mainFrame.newEntity(new Gender());
 		});
         toolBar.add(btNewGender);
+        
+        btNewSpecies = initButton("16x16/new","species.new");		/* create new species */
+        btNewSpecies.addActionListener((ActionEvent evt) -> {
+			mainFrame.newEntity(new Species());
+		});
+        toolBar.add(btNewSpecies);
 
         btNewRelationship = initButton("16x16/group","relationship.new");
         btNewRelationship.addActionListener((ActionEvent evt) -> {
@@ -473,6 +482,8 @@ public class SbMenu {
 			mainFrame.showAndFocus(GENDERS);
 		});
         toolBar.add(btTabGender);
+        
+       
 
         btTabRelationship = initButton("16x32/manage_relationships","relationship");
         btTabRelationship.addActionListener((ActionEvent evt) -> {
@@ -823,6 +834,12 @@ public class SbMenu {
 			mainFrame.newEntity(new Gender());
 		});
         menuNewEntity.add(newGender);
+        
+        newSpecies = initMenuItem("16x16/new","",' ',"species","newSpecies");
+        newSpecies.addActionListener((ActionEvent evt) -> {
+			mainFrame.newEntity(new Species());
+		});
+        menuNewEntity.add(newSpecies);
 
         newCategory = initMenuItem("16x16/category","",' ',"persons.category","newCategory");
         newCategory.addActionListener((ActionEvent evt) -> {
@@ -947,7 +964,7 @@ public class SbMenu {
 			mainFrame.showAndFocus(GENDERS);
 		});
         menuSecondaryObjects.add(tabGender);
-
+        
         tabCategory = initMenuItem("16x32/manage_categories","",' ',"persons.category","tabCategory");
         tabCategory.addActionListener((ActionEvent evt) -> {
 			mainFrame.showAndFocus(CATEGORIES);

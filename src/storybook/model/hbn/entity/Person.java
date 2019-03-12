@@ -40,6 +40,7 @@ import storybook.toolkit.swing.ColorUtil;
 public class Person extends AbstractEntity implements Comparable<Person> {
 
 	private Gender gender;
+	private Species species;
 	private String firstname = "";
 	private String lastname = "";
 	private String abbreviation = "";
@@ -59,7 +60,7 @@ public class Person extends AbstractEntity implements Comparable<Person> {
 	public Person(Gender gender, String firstname, String lastname,
 			String abbreviation, Date birthday, Date dayofdeath,
 			String occupation, String description, Integer color, String notes,
-			Category category, List<Attribute> attributes) {
+			Category category, List<Attribute> attributes, Species species) {
 		this.gender = gender;
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -72,6 +73,7 @@ public class Person extends AbstractEntity implements Comparable<Person> {
 		this.notes = notes;
 		this.category = category;
 		this.attributes = attributes;
+		this.species = species;
 	}
 
 	public Gender getGender() {
@@ -80,6 +82,14 @@ public class Person extends AbstractEntity implements Comparable<Person> {
 
 	public void setGender(Gender gender) {
 		this.gender = gender;
+	}
+	
+	public Species getSpecies() {
+		return this.species;
+	}
+
+	public void setSpecies(Species species) {
+		this.species=species;
 	}
 
 	public String getFirstname() {
@@ -358,6 +368,7 @@ public class Person extends AbstractEntity implements Comparable<Person> {
 		ret = ret && equalsStringNullValue(firstname, test.getFirstname());
 		ret = ret && equalsStringNullValue(lastname, test.getLastname());
 		ret = ret && equalsObjectNullValue(gender, test.getGender());
+		ret = ret && equalsObjectNullValue(species, test.getSpecies());		/* added species */
 		ret = ret && equalsDateNullValue(birthday, test.getBirthday());
 		ret = ret && equalsDateNullValue(dayofdeath, test.getDayofdeath());
 		ret = ret && equalsIntegerNullValue(color, test.getColor());
@@ -375,6 +386,7 @@ public class Person extends AbstractEntity implements Comparable<Person> {
 		hash = hash * 31 + (firstname != null ? firstname.hashCode() : 0);
 		hash = hash * 31 + (lastname != null ? lastname.hashCode() : 0);
 		hash = hash * 31 + (gender != null ? gender.hashCode() : 0);
+		hash = hash * 31 + (species != null ? species.hashCode() : 0);		/* added species */
 		hash = hash * 31 + (birthday != null ? birthday.hashCode() : 0);
 		hash = hash * 31 + (dayofdeath != null ? dayofdeath.hashCode() : 0);
 		hash = hash * 31 + (color != null ? color.hashCode() : 0);

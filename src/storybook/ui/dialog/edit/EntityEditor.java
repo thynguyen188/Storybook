@@ -94,6 +94,7 @@ import storybook.model.handler.PartEntityHandler;
 import storybook.model.handler.PersonEntityHandler;
 import storybook.model.handler.RelationshipEntityHandler;
 import storybook.model.handler.SceneEntityHandler;
+import storybook.model.handler.SpeciesEntityHandler;
 import storybook.model.handler.StrandEntityHandler;
 import storybook.model.handler.TagEntityHandler;
 import storybook.model.handler.TagLinkEntityHandler;
@@ -115,6 +116,7 @@ import storybook.model.hbn.entity.Part;
 import storybook.model.hbn.entity.Person;
 import storybook.model.hbn.entity.Relationship;
 import storybook.model.hbn.entity.Scene;
+import storybook.model.hbn.entity.Species;
 import storybook.model.hbn.entity.Strand;
 import storybook.model.hbn.entity.Tag;
 import storybook.model.hbn.entity.TagLink;
@@ -215,7 +217,9 @@ public class EntityEditor extends AbstractPanel implements ActionListener, ItemL
 			entityHandler = new PersonEntityHandler(mainFrame);
 		} else if (entity instanceof Gender) {
 			entityHandler = new GenderEntityHandler(mainFrame);
-		} else if (entity instanceof Category) {
+		} else if (entity instanceof Species) {
+			entityHandler = new SpeciesEntityHandler(mainFrame);
+		}else if (entity instanceof Category) {
 			entityHandler = new CategoryEntityHandler(mainFrame);
 		} else if (entity instanceof Attribute) {
 			entityHandler = new AttributeEntityHandler(mainFrame);
@@ -1067,7 +1071,10 @@ public class EntityEditor extends AbstractPanel implements ActionListener, ItemL
 				} else if (type == Gender.class) {
 					val = (Gender) objVal;
 					types = new Class[]{Gender.class};
-				} else if (type == Category.class) {
+				} else if (type == Species.class) {
+					val = (Species) objVal;
+					types = new Class[]{Species.class};
+				}else if (type == Category.class) {
 					if (objVal instanceof String) {
 						if (((String) objVal).length() == 0) {
 							val = null;

@@ -79,6 +79,7 @@ import storybook.model.handler.PartEntityHandler;
 import storybook.model.handler.PersonEntityHandler;
 import storybook.model.handler.RelationshipEntityHandler;
 import storybook.model.handler.SceneEntityHandler;
+import storybook.model.handler.SpeciesEntityHandler;
 import storybook.model.handler.StrandEntityHandler;
 import storybook.model.handler.TagEntityHandler;
 import storybook.model.handler.TagLinkEntityHandler;
@@ -115,6 +116,7 @@ import storybook.model.hbn.entity.Part;
 import storybook.model.hbn.entity.Person;
 import storybook.model.hbn.entity.Relationship;
 import storybook.model.hbn.entity.Scene;
+import storybook.model.hbn.entity.Species;
 import storybook.model.hbn.entity.Strand;
 import storybook.model.hbn.entity.Tag;
 import storybook.model.hbn.entity.TagLink;
@@ -779,6 +781,9 @@ public class EntityUtil {
 		if (entity instanceof Gender) {
 			return new GenderEntityHandler(mainFrame);
 		}
+		if (entity instanceof Species) {
+			return new SpeciesEntityHandler(mainFrame);		/* define new entity - species */
+		}
 		if (entity instanceof Category) {
 			return new CategoryEntityHandler(mainFrame);
 		}
@@ -827,6 +832,9 @@ public class EntityUtil {
 		}
 		if (entity instanceof Gender) {
 			return Gender.class;
+		}
+		if (entity instanceof Species) {
+			return Species.class;
 		}
 		if (entity instanceof Attribute) {
 			return Attribute.class;
@@ -1446,6 +1454,9 @@ public class EntityUtil {
 		}
 		if (obj instanceof Gender || method.getReturnType() == Gender.class) {
 			return new GenderEntityHandler(mainFrame);
+		}
+		if (obj instanceof Species || method.getReturnType() == Species.class) {
+			return new SpeciesEntityHandler(mainFrame);
 		}
 		if (obj instanceof Part || method.getReturnType() == Part.class) {
 			return new PartEntityHandler(mainFrame);

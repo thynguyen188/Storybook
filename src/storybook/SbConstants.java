@@ -284,6 +284,7 @@ public class SbConstants {
 		PERSONS("Persons"),
 		RELATIONSHIPS("Relationships"),
 		GENDERS("Genders"),
+		SPECIES("Species"),
 		CATEGORIES("Categories"),
 		ATTRIBUTES("Attributes"),
 		ATTRIBUTESLIST("AttributesList"),

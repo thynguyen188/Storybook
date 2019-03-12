@@ -33,6 +33,7 @@ import storybook.model.hbn.dao.AttributeDAOImpl;
 import storybook.model.hbn.dao.CategoryDAOImpl;
 import storybook.model.hbn.dao.ChapterDAOImpl;
 import storybook.model.hbn.dao.GenderDAOImpl;
+import storybook.model.hbn.dao.SpeciesDAOImpl;
 import storybook.model.hbn.dao.IdeaDAOImpl;
 import storybook.model.hbn.dao.InternalDAOImpl;
 import storybook.model.hbn.dao.ItemDAOImpl;
@@ -62,6 +63,7 @@ import storybook.model.hbn.entity.Part;
 import storybook.model.hbn.entity.Person;
 import storybook.model.hbn.entity.Relationship;
 import storybook.model.hbn.entity.Scene;
+import storybook.model.hbn.entity.Species;
 import storybook.model.hbn.entity.Strand;
 import storybook.model.hbn.entity.Tag;
 import storybook.model.hbn.entity.TagLink;
@@ -126,6 +128,11 @@ public class BookModel extends AbstractModel {
 		session_save(session,male);
 		Gender female = new Gender(I18N.getMsg("person.gender.female"), 12, 6, 47, 14);
 		session_save(session,female);
+		
+		// default species
+		Species human = new Species("Human");
+		session_save(session,human);
+		
 
 		// default categories
 		Category major = new Category(1, I18N.getMsg("category.central_character"), null);
@@ -159,6 +166,7 @@ public class BookModel extends AbstractModel {
 		fireAgainCategories();
 		fireAgainChapters();
 		fireAgainGenders();
+		fireAgainSpecies();
 		fireAgainIdeas();
 		fireAgainInternals();
 		fireAgainItems();
@@ -201,7 +209,9 @@ public class BookModel extends AbstractModel {
 			fireAgainRelationships();
 		} else if (ViewName.GENDERS.compare(view)) {
 			fireAgainGenders();
-		} else if (ViewName.CATEGORIES.compare(view)) {
+		} else if (ViewName.SPECIES.compare(view)) {
+			fireAgainSpecies();
+		}else if (ViewName.CATEGORIES.compare(view)) {
 			fireAgainCategories();
 		} else if (ViewName.ATTRIBUTES.compare(view)) {
 			fireAgainAttributes();
@@ -291,6 +301,14 @@ public class BookModel extends AbstractModel {
 		List<Gender> genders = dao.findAll();
 		commit();
 		firePropertyChange(BookController.GenderProps.INIT.toString(), null, genders);
+	}
+	private void fireAgainSpecies() {
+		SbApp.trace("BookModel.fireAgainSpecies()");
+		Session session = beginTransaction();
+		SpeciesDAOImpl dao = new SpeciesDAOImpl(session);
+		List<Species> species = dao.findAll();
+		commit();
+		firePropertyChange(BookController.SpeciesProps.INIT.toString(), null, species);
 	}
 
 	private void fireAgainCategories() {
@@ -460,6 +478,9 @@ public class BookModel extends AbstractModel {
 
 	public void setShowInfo(Gender gender) {
 		setShowInfo((AbstractEntity) gender);
+	}
+	public void setShowInfo(Species species) {
+		setShowInfo((AbstractEntity) species);
 	}
 
 	public void setShowInfo(Location location) {
@@ -1020,6 +1041,35 @@ public class BookModel extends AbstractModel {
 			firePropertyChange(BookController.GenderProps.DELETE.toString(), old, null);
 		}
 	}
+	
+	// species
+		public void setEditSpecies(Species entity) {
+			//firePropertyChange(BookController.GenderProps.EDIT.toString(), null, entity);
+			editEntity((AbstractEntity) entity);
+		}
+
+		public synchronized void setUpdateSpecies(Species entity) {
+			Session session = beginTransaction();
+			SpeciesDAOImpl dao = new SpeciesDAOImpl(session);
+			Species old = dao.find(entity.getId());
+			commit();
+			session = beginTransaction();
+			session_update(session,entity);
+			commit();
+			mainFrame.setUpdated(true);
+			firePropertyChange(BookController.SpeciesProps.UPDATE.toString(), old, entity);
+		}
+
+		public synchronized void setNewSpecies(Species entity) {
+			Session session = beginTransaction();
+			session_save(session,entity);
+			commit();
+			firePropertyChange(BookController.SpeciesProps.NEW.toString(), null, entity);
+		}
+
+	
+		
+		
 
 	// gender
 	public void setEditAttribute(Attribute entity) {

@@ -1162,6 +1162,21 @@ public class EntityEditor extends AbstractPanel implements ActionListener, ItemL
 			}
 		}
 	}
+	
+	private void verifyDuplicate() {
+		errorState = ErrorState.OK;
+		BookModel model = mainFrame.getBookModel();
+		Session session = model.beginTransaction();
+		LocationDAOImpl dao = new LocationDAOImpl(session);
+		List<Location> allLocations = dao.findAll();
+		for(Location location: allLocations) {
+			if(((Location) entity).compareTo(location) == 0) {
+				errorState = ErrorState.ERROR;
+				JOptionPane.showMessageDialog(this, I18N.getMsg("editor.has.error"),
+						"Duplicated location", JOptionPane.WARNING_MESSAGE);
+			}
+		}
+	}
 
 	private void verifyInput() {
 		SbApp.trace("EntityEditor.verifyInput()");
@@ -1173,19 +1188,6 @@ public class EntityEditor extends AbstractPanel implements ActionListener, ItemL
 				for (Component comp : components) {
 					Container cont = comp.getParent();
 					cont.remove(comp);
-				}
-			}
-			if(entity instanceof Location) {
-				BookModel model = mainFrame.getBookModel();
-				Session session = model.beginTransaction();
-				LocationDAOImpl dao = new LocationDAOImpl(session);
-				List<Location> allLocations = dao.findAll();
-				for(Location location: allLocations) {
-					if(((Location) entity).compareTo(location) == 0) {
-						errorState = ErrorState.ERROR;
-						JOptionPane.showMessageDialog(this, I18N.getMsg("editor.has.error"),
-								"Duplicated location", JOptionPane.WARNING_MESSAGE);
-					}
 				}
 			}
 			int i = 0;
@@ -1266,6 +1268,12 @@ public class EntityEditor extends AbstractPanel implements ActionListener, ItemL
 		SbApp.trace("EntityEditor.addOrUpdateEntity()");
 		try {
 			updateEntityFromInputComponents();
+			if(entity instanceof Location) {
+				verifyDuplicate();
+				if (errorState == ErrorState.ERROR) {
+					return;
+				}
+			}
 			if (entity.isTransient()) {
 				verifyInput();
 				if (errorState == ErrorState.ERROR) {

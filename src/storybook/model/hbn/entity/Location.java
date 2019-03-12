@@ -412,7 +412,33 @@ public class Location extends AbstractEntity implements Comparable<Location> {
 			}
 			int cmp2 = city.compareTo(o.getCity());
 			if (cmp2 == 0) {
-				return name.compareTo(o.getName());
+				if (address == null && o.getAddress() == null) {
+					return 0;
+				}
+				if (address != null && o.getAddress() == null) {
+					return -1;
+				}
+				if (o.getAddress() != null && address == null) {
+					return -1;
+				}
+				int cmp3 = address.compareTo(o.getAddress());
+				if(cmp3 == 0) {	
+					if (altitude == null && o.getAltitude() == null) {
+						return 0;
+					}
+					if (altitude != null && o.getAltitude() == null) {
+						return -1;
+					}
+					if (o.getAltitude() != null && altitude == null) {
+						return -1;
+					}
+					int cmp4 = altitude.compareTo(o.getAltitude());
+					if(cmp4 == 0) {						
+						return name.compareTo(o.getName());
+					}
+					return cmp4;
+				}
+				return cmp3;
 			}
 			return cmp2;
 		}

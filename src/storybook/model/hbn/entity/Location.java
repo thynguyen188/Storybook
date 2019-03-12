@@ -378,9 +378,48 @@ public class Location extends AbstractEntity implements Comparable<Location> {
 		hash = hash * 31 + (notes != null ? notes.hashCode() : 0);
 		return hash;
 	}
-
+	
 	@Override
 	public int compareTo(Location o) {
+		if (hasSite() && (!o.hasSite())) {
+			return 1;
+		}
+		if (!hasSite() && (o.hasSite())) {
+			return -1;
+		}
+		if (hasSite() && (o.hasSite()) && (!(getSite().equals(o.getSite())))) {
+			return getSite().compareTo(o.getSite());
+		}
+		if (country == null && o.getCountry() == null) {
+			return name.compareTo(o.getName());
+		}
+		if (country != null && o.getCountry() == null) {
+			return -1;
+		}
+		if (o.getCountry() != null && country == null) {
+			return -1;
+		}
+		int cmp = country.compareTo(o.getCountry());
+		if (cmp == 0) {
+			if (city == null && o.getCity() == null) {
+				return 0;
+			}
+			if (city != null && o.getCity() == null) {
+				return -1;
+			}
+			if (o.getCity() != null && city == null) {
+				return -1;
+			}
+			int cmp2 = city.compareTo(o.getCity());
+			if (cmp2 == 0) {
+				return name.compareTo(o.getName());
+			}
+			return cmp2;
+		}
+		return cmp;
+	}
+
+	public int compareLocation(Location o) {
 		if (hasSite() && (!o.hasSite())) {
 			return 1;
 		}
